@@ -98,9 +98,11 @@ async function handleCallback(request: Request, env: Env): Promise<Response> {
 	const targetOrigin = `https://${env.ALLOWED_DOMAIN}`;
 	const payload = JSON.stringify({ provider: "github", token });
 
-	// HTML that performs Sveltia's handshake. The opener (admin tab) is
-	// listening for 'authorizing:<provider>' → replies 'authorized:<provider>' →
-	// we then send the actual token.
+	// HTML that performs Sveltia's handshake (inherited from Decap/Netlify CMS).
+	// The popup kicks things off with 'authorizing:<provider>'. The opener
+	// (admin tab) echoes the SAME string back as its "ready, send me the token"
+	// ack — not 'authorized:...' (that's a common misreading). After the ack
+	// we post 'authorization:<provider>:success:<json>' and close.
 	const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -124,11 +126,11 @@ async function handleCallback(request: Request, env: Env): Promise<Response> {
 		}
 
 		function onMessage(e) {
-			// Accept any origin on the intended target host (Sveltia sometimes
-			// posts back from the admin origin, not the exact string we sent).
 			if (e.origin !== targetOrigin) return;
-			if (e.data === "authorized:" + provider) {
+			// The admin echoes 'authorizing:<provider>' back as its ack.
+			if (e.data === "authorizing:" + provider) {
 				window.removeEventListener("message", onMessage);
+				clearInterval(interval);
 				window.opener.postMessage(
 					"authorization:" + provider + ":success:" + payload,
 					targetOrigin
