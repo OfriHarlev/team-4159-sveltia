@@ -1,0 +1,8 @@
+---
+title: "Class of 2013"
+date: "2026-04-17 05:44:23"
+---
+
+<p><figure style="width: 500px" class="wp-caption alignnone"><a href="/ellande-tang" ><img src="https://static1.squarespace.com/static/53692533e4b04e767ae9a4f6/t/5511ddcfe4b0a3782aa88c8d/1427234279988/CAM00337.jpg?format=original" alt="  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ellande Tang  "/></a><figcaption class="wp-caption-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ellande Tang</figcaption></figure> </p>
+<p>       <figure style="width: 500px" class="wp-caption alignnone"><a href="/francesco-trogu" ><img src="https://static1.squarespace.com/static/53692533e4b04e767ae9a4f6/t/5515d4d2e4b0932ce9c9bc7d/1427494163672/FrancescoTrogu.png?format=original" alt="   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Francesco Trogu   "/></a><figcaption class="wp-caption-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Francesco Trogu</figcaption></figure> </p>
+<p>       <figure style="width: 500px" class="wp-caption alignnone"><a href="/mingyi-chen" ><img src="https://static1.squarespace.com/static/53692533e4b04e767ae9a4f6/t/54d2c134e4b02e000def3496/1424132682614/?format=original" alt="  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Mingyi Chen  "/></a><figcaption class="wp-caption-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Mingyi Chen</figcaption></figure></p>

@@ -1,0 +1,7 @@
+---
+title: "Class of 2014"
+date: "2026-04-17 05:44:23"
+---
+
+<p><figure style="width: 500px" class="wp-caption alignnone"><a href="/annastasia-wong"><img src="https://static1.squarespace.com/static/53692533e4b04e767ae9a4f6/t/55108fc4e4b0503efc1ad44c/1427149025245/?format=original" alt="  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Annastasia    Wong  "></a><figcaption class="wp-caption-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Annastasia    Wong</figcaption></figure></p>
+<p><figure style="width: 500px" class="wp-caption alignnone"><a href="/kenny-zhen"><img src="https://static1.squarespace.com/static/53692533e4b04e767ae9a4f6/t/54e287f2e4b0ef0a3e44ad8d/1424132633149/?format=original" alt="  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Kenny Zhen  "></a><figcaption class="wp-caption-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Kenny Zhen</figcaption></figure></p>

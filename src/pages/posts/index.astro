@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+const posts = (await getCollection("posts")).sort(
+	(a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0)
+);
+---
+
+<Base title="News & Dispatches" description="News and updates from Team 4159">
+	<section class="news-index">
+		<header class="news-index-head">
+			<div class="kicker">
+				<span class="num">/</span>
+				<span class="label">Dispatches</span>
+			</div>
+			<h1 class="news-index-title">News &amp; <em>notes.</em></h1>
+			<hr class="rule" />
+		</header>
+		<ul class="post-list">
+			{posts.map((post) => (
+				<li class="post-item">
+					<a href={`/posts/${post.id}`}>
+						<span class="num">{post.data.date ? new Date(post.data.date).getFullYear() : "—"}</span>
+						<div>
+							<h2 class="post-item-title">{post.data.title}</h2>
+							{post.data.excerpt && <p class="post-item-excerpt">{post.data.excerpt}</p>}
+						</div>
+						<span class="arrow">→</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
+</Base>
+
+<style>
+	.news-index { max-width: var(--wide-width); margin: 0 auto; padding: clamp(72px, 12vh, 140px) clamp(24px, 5vw, 80px) clamp(80px, 12vh, 140px); }
+	.news-index-head { margin-bottom: clamp(40px, 8vh, 80px); }
+	.kicker { display: flex; gap: 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 18px; }
+	.kicker .num { color: var(--cardinal-bright); }
+	.news-index-title { font-family: var(--font-display); font-size: clamp(48px, 8vw, 120px); font-weight: 400; line-height: 0.95; letter-spacing: -0.025em; margin: 0 0 24px; }
+	.news-index-title em { font-style: italic; color: var(--cardinal-bright); }
+	.rule { border: 0; height: 1px; background: var(--color-border); margin: 0; }
+
+	.post-list { list-style: none; padding: 0; margin: 0; }
+	.post-item { border-bottom: 1px solid var(--color-border); }
+	.post-item a { display: grid; grid-template-columns: 80px 1fr auto; gap: 32px; padding: 28px 0; align-items: center; transition: padding 200ms ease; color: inherit; text-decoration: none; }
+	.post-item a:hover { padding-left: 12px; }
+	.post-item .num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; color: var(--cardinal-bright); text-transform: uppercase; }
+	.post-item-title { font-family: var(--font-display); font-size: clamp(24px, 3vw, 36px); font-weight: 400; margin: 0 0 6px; color: var(--color-text); }
+	.post-item a:hover .post-item-title { font-style: italic; color: var(--cardinal-bright); }
+	.post-item-excerpt { font-size: 14px; color: var(--color-muted); margin: 0; }
+	.arrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--color-muted); opacity: 0.6; transition: all 200ms ease; }
+	.post-item a:hover .arrow { opacity: 1; transform: translateX(6px); color: var(--cardinal-bright); }
+</style>

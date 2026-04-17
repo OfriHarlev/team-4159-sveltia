@@ -1,0 +1,11 @@
+---
+title: "Mingyi Chen"
+date: "2026-04-17 05:44:23"
+---
+
+<p><img src="https://static1.squarespace.com/static/53692533e4b04e767ae9a4f6/t/54d2c440e4b0c2c49c8f665b/1423098948548/?format=original" alt=""/></p>
+<p><strong>Bio:&nbsp;</strong><span style="font-size:13.3333330154419px">My name is Mingyi Chen. I was with the team from 2012 (rebound rumble) to 2013 (ultimate ascent). I started out slightly interested in computers and programming, but joining this mysterious team that just started with hack saws, one mentor, and barely enough money to register for one regional was life-changing. I ventured into computer aided design and was surprisingly able to complete Ball-E&#8217;s CAD with a small team of people, albeit with some rough edges here and there. I went on to lead the team as head of design for the 2013 season. Ultimate Ascent was a designer&#8217;s &#8220;lucky nightmare&#8221;. It was during this season that I really realized that being an engineer meant sometimes taking big risks without expectations that everything works with perfectly. But it is those risks that we take that brings the possibility of completely eliminating problems. Long Shot was such a robot that evolved over the risky decisions and continued iterations we made, and I would do it again the same way it was done. It&#8217;s the process of learning that is valuable for me and every member on the team.</span><span style="font-size:13.3333330154419px">&nbsp;</span></p>
+<p><strong>What they are doing now:&nbsp;</strong><span style="font-size:13.3333330154419px">I am currently studying mechanical engineering at UC San Diego. It is very sunny here but the differential equations can get rainy sometimes. When they do, I just go to AIAA&#8217;s build room to work on a Design/Build/Fly competition plane or kick some soccer. I aim to go to graduate school and work as a full-time mechanical engineer in either the aerospace industry or the automotive industry.</span><span style="font-size:13.3333330154419px">&nbsp;</span></p>
+<div class="sqs-block-button-container--center" data-alignment="center" data-button-size="small">
+	<a href="/class-of-2013" class="sqs-block-button-element--small sqs-block-button-element" >Back to class of 2013</a>
+</div>

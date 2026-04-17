@@ -1,0 +1,350 @@
+---
+import { getCollection, getEntry } from "astro:content";
+
+const hp = await getEntry("homepage", "main");
+const f = hp!.data;
+
+const posts = (await getCollection("posts")).sort(
+	(a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0)
+);
+const featuredPost = posts[0];
+const sidePosts = posts.slice(1, 4);
+
+const sections = [
+	{ num: "01", label: "Our Team", href: "/pages/our-team", hint: "Students, mentors, and the people behind the builds." },
+	{ num: "02", label: "Robots", href: "/pages/competitions", hint: "A decade of FRC machines, from rookie year to now." },
+	{ num: "03", label: "Sponsors", href: "/pages/current-sponsors", hint: "The partners who make our season possible." },
+	{ num: "04", label: "Outreach", href: "/pages/outreach", hint: "STEM workshops, demos, and community events." },
+	{ num: "05", label: "Events", href: "/pages/events", hint: "Competitions, showcases, pasta dinners." },
+	{ num: "06", label: "Contact", href: "/pages/contact-us", hint: "Get in touch — mentorship, press, questions." },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>CardinalBotics · Team 4159 · FRC · Lowell High School</title>
+		<meta name="description" content="Lowell High School's FIRST Robotics Competition team. Active since 2012." />
+
+		<link rel="icon" type="image/png" href="/wp-content/uploads/2019/05/cropped-Untitled-1.png" />
+		<link rel="apple-touch-icon" href="/wp-content/uploads/2019/05/cropped-Untitled-1.png" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+
+		<style is:global>
+			:root {
+				--ink: #0a0908;
+				--ink-soft: #15120f;
+				--paper: #f3ede0;
+				--paper-soft: #e9e1d0;
+				--paper-mute: #c8c1b1;
+				--cardinal: #8c1515;
+				--cardinal-bright: #c42d2d;
+				--cardinal-deep: #5c0c0c;
+				--rule: rgba(243, 237, 224, 0.16);
+				--rule-soft: rgba(243, 237, 224, 0.08);
+
+				--font-display: "Instrument Serif", "Times New Roman", serif;
+				--font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+				--font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+			}
+			*, *::before, *::after { box-sizing: border-box; }
+			html, body { margin: 0; padding: 0; }
+			body {
+				background: var(--ink);
+				color: var(--paper);
+				font-family: var(--font-sans);
+				font-size: 16px;
+				line-height: 1.55;
+				-webkit-font-smoothing: antialiased;
+				overflow-x: hidden;
+			}
+			a { color: inherit; text-decoration: none; }
+			img { max-width: 100%; display: block; }
+			::selection { background: var(--cardinal); color: var(--paper); }
+		</style>
+
+		<style>
+			.wrap { width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 80px); }
+			.label { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--paper-mute); }
+			.num { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; color: var(--cardinal-bright); }
+
+			.topbar {
+				position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+				padding: 20px 0;
+				background: linear-gradient(to bottom, rgba(10, 9, 8, 0.85), rgba(10, 9, 8, 0));
+				backdrop-filter: blur(6px);
+			}
+			.topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+			.brand-mark { display: flex; align-items: baseline; gap: 10px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper); }
+			.brand-mark b { color: var(--cardinal-bright); font-weight: 500; }
+			.topnav { display: flex; gap: clamp(14px, 2vw, 28px); align-items: center; }
+			.topnav a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper); opacity: 0.75; transition: opacity 180ms ease, color 180ms ease; }
+			.topnav a:hover { opacity: 1; color: var(--cardinal-bright); }
+			@media (max-width: 780px) { .topnav a:not(.topnav-cta) { display: none; } }
+			.topnav-cta { padding: 8px 14px; border: 1px solid var(--paper-mute); border-radius: 999px; opacity: 1 !important; }
+			.topnav-cta:hover { border-color: var(--cardinal-bright); color: var(--cardinal-bright); }
+
+			.hero { position: relative; min-height: 100vh; padding-top: 110px; padding-bottom: 80px; display: grid; grid-template-rows: 1fr auto; overflow: hidden; isolation: isolate; }
+			.hero-bg { position: absolute; inset: 0; background-image: url("/wp-content/uploads/2026/01/DSC01744-scaled.jpg"); background-size: cover; background-position: center 30%; filter: grayscale(60%) contrast(1.05) brightness(0.45); z-index: -2; }
+			.hero-bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(140, 21, 21, 0.45) 0%, transparent 55%), linear-gradient(180deg, rgba(10, 9, 8, 0.25) 0%, rgba(10, 9, 8, 0.88) 100%); }
+			.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(to right, var(--rule-soft) 1px, transparent 1px), linear-gradient(to bottom, var(--rule-soft) 1px, transparent 1px); background-size: 80px 80px; z-index: -1; mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.8) 0%, transparent 75%); }
+			.hero-head { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 40px; padding-top: 8px; }
+			.hero-mark { display: flex; flex-direction: column; gap: 6px; }
+			.hero-mark .label { color: var(--paper); opacity: 0.7; }
+			.hero-meta-grid { display: grid; grid-template-columns: repeat(3, minmax(0, auto)); gap: 32px; text-align: right; }
+			@media (max-width: 780px) { .hero-meta-grid { display: none; } }
+			.hero-meta-grid .label { color: var(--paper); opacity: 0.55; }
+			.hero-meta-grid .val { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.05em; margin-top: 4px; }
+
+			.hero-display { align-self: end; padding-bottom: 16px; }
+			.hero-display h1 { font-family: var(--font-display); font-weight: 400; font-style: italic; line-height: 0.82; letter-spacing: -0.03em; margin: 0; font-size: clamp(72px, 16vw, 260px); color: var(--paper); }
+			.hero-display h1 .split { display: block; }
+			.hero-display h1 .split2 { padding-left: clamp(30px, 10vw, 160px); color: var(--cardinal-bright); font-style: italic; }
+
+			.hero-foot { display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(20px, 4vw, 60px); align-items: end; padding-top: 40px; border-top: 1px solid var(--rule); margin-top: 40px; }
+			.hero-pitch { max-width: 420px; font-size: 16px; color: var(--paper-soft); line-height: 1.55; }
+			.hero-ctas { display: flex; flex-direction: column; gap: 10px; align-items: stretch; justify-self: center; }
+			@media (max-width: 680px) { .hero-foot { grid-template-columns: 1fr; } .hero-ctas { justify-self: start; } }
+			.btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 22px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid var(--paper); color: var(--paper); background: transparent; transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1); min-width: 240px; cursor: pointer; }
+			.btn:hover { background: var(--paper); color: var(--ink); }
+			.btn--cardinal { background: var(--cardinal); border-color: var(--cardinal); color: var(--paper); }
+			.btn--cardinal:hover { background: var(--cardinal-bright); border-color: var(--cardinal-bright); }
+			.btn .arrow { transition: transform 200ms ease; }
+			.btn:hover .arrow { transform: translateX(4px); }
+
+			.hero-signal { justify-self: end; text-align: right; }
+			.hero-signal .seasons { font-family: var(--font-display); font-style: italic; font-size: clamp(56px, 8vw, 120px); line-height: 0.8; color: var(--paper); }
+			.hero-signal .seasons-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--paper-mute); margin-top: 6px; }
+
+			.section { padding: clamp(80px, 12vh, 160px) 0; }
+			.section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: clamp(24px, 6vw, 80px); align-items: baseline; margin-bottom: clamp(40px, 8vh, 80px); }
+			@media (max-width: 780px) { .section-head { grid-template-columns: 1fr; gap: 20px; } }
+			.section-title { font-family: var(--font-display); font-weight: 400; font-size: clamp(44px, 7vw, 96px); line-height: 0.95; letter-spacing: -0.02em; margin: 0; }
+			.section-title em { font-style: italic; color: var(--cardinal-bright); }
+			.section-kicker { display: flex; flex-direction: column; gap: 6px; }
+
+			.mission { background: var(--ink-soft); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+			.mission-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: clamp(24px, 6vw, 80px); }
+			@media (max-width: 780px) { .mission-body { grid-template-columns: 1fr; gap: 20px; } }
+			.mission-statement { font-family: var(--font-display); font-size: clamp(28px, 3.4vw, 46px); line-height: 1.1; letter-spacing: -0.01em; color: var(--paper); font-weight: 400; }
+			.mission-meta { display: flex; flex-direction: column; gap: 24px; }
+			.mission-meta p { font-size: 14px; color: var(--paper-mute); line-height: 1.6; margin: 0; }
+
+			.index-rows { display: flex; flex-direction: column; border-top: 1px solid var(--rule); }
+			.index-row { display: grid; grid-template-columns: 80px minmax(0, 1fr) minmax(0, 2fr) auto; gap: 32px; align-items: center; padding: 28px 0; border-bottom: 1px solid var(--rule); transition: background 250ms ease, padding 250ms ease; overflow: hidden; }
+			.index-row:hover { padding-left: 12px; background: linear-gradient(90deg, rgba(140, 21, 21, 0.08), transparent); }
+			.index-row .num { font-size: 14px; }
+			.index-row .row-name { font-family: var(--font-display); font-size: clamp(32px, 4.5vw, 56px); font-weight: 400; letter-spacing: -0.02em; line-height: 1; color: var(--paper); }
+			.index-row:hover .row-name { font-style: italic; }
+			.index-row .row-hint { font-size: 14px; color: var(--paper-mute); line-height: 1.5; }
+			.index-row .row-go { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--paper); opacity: 0.5; transition: all 200ms ease; }
+			.index-row:hover .row-go { opacity: 1; transform: translateX(6px); color: var(--cardinal-bright); }
+			@media (max-width: 780px) { .index-row { grid-template-columns: 40px 1fr auto; gap: 16px; padding: 20px 0; } .index-row .row-hint { display: none; } }
+
+			.news-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 5vw, 60px); }
+			@media (max-width: 780px) { .news-grid { grid-template-columns: 1fr; } }
+			.news-feature { display: flex; flex-direction: column; gap: 20px; border: 1px solid var(--rule); padding: 32px; background: var(--ink-soft); transition: border-color 200ms ease; }
+			.news-feature:hover { border-color: var(--cardinal); }
+			.news-feature-title { font-family: var(--font-display); font-size: clamp(32px, 4vw, 52px); line-height: 1.05; letter-spacing: -0.015em; font-weight: 400; margin: 0; }
+			.news-feature-excerpt { font-size: 15px; line-height: 1.6; color: var(--paper-mute); }
+			.news-feature-meta { display: flex; justify-content: space-between; border-top: 1px solid var(--rule); padding-top: 16px; margin-top: auto; }
+
+			.news-side { display: flex; flex-direction: column; }
+			.news-side-item { padding: 22px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 40px 1fr; gap: 16px; transition: padding 200ms ease; }
+			.news-side-item:first-child { border-top: 1px solid var(--rule); }
+			.news-side-item:hover { padding-left: 6px; }
+			.news-side-title { font-family: var(--font-display); font-size: 22px; line-height: 1.15; font-weight: 400; letter-spacing: -0.01em; margin: 0 0 4px 0; }
+			.news-side-item:hover .news-side-title { font-style: italic; color: var(--cardinal-bright); }
+			.news-side-excerpt { font-size: 13px; color: var(--paper-mute); line-height: 1.45; }
+
+			.colophon { padding: clamp(80px, 12vh, 160px) 0; background: radial-gradient(ellipse at 80% 50%, rgba(140, 21, 21, 0.18), transparent 60%), var(--ink); border-top: 1px solid var(--rule); position: relative; overflow: hidden; }
+			.colophon::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(to right, var(--rule-soft) 1px, transparent 1px); background-size: 80px 100%; opacity: 0.6; }
+			.colophon-inner { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); align-items: end; position: relative; }
+			@media (max-width: 780px) { .colophon-inner { grid-template-columns: 1fr; } }
+			.colophon-title { font-family: var(--font-display); font-size: clamp(56px, 10vw, 140px); line-height: 0.9; letter-spacing: -0.03em; margin: 0; font-weight: 400; }
+			.colophon-title em { font-style: italic; color: var(--cardinal-bright); }
+			.colophon-paths { display: flex; flex-direction: column; gap: 12px; }
+
+			.foot { padding: 40px 0; border-top: 1px solid var(--rule); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper-mute); }
+			.foot-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+			.foot a:hover { color: var(--cardinal-bright); }
+
+			@keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+			@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+			.anim-rise { animation: rise 900ms cubic-bezier(0.2, 0, 0.1, 1) both; }
+			.anim-fade { animation: fade 1400ms ease both; }
+			.d1 { animation-delay: 80ms; } .d2 { animation-delay: 200ms; } .d3 { animation-delay: 340ms; }
+			@media (prefers-reduced-motion: reduce) { .anim-rise, .anim-fade { animation: none; } }
+		</style>
+	</head>
+
+	<body>
+		<header class="topbar anim-fade">
+			<div class="wrap topbar-inner">
+				<a href="/" class="brand-mark">
+					<span>TEAM<b>.</b>4159</span>
+					<span style="opacity:0.4">/</span>
+					<span>CARDINALBOTICS</span>
+				</a>
+				<nav class="topnav">
+					<a href="/pages/our-team">Team</a>
+					<a href="/pages/competitions">Robots</a>
+					<a href="/pages/current-sponsors">Sponsors</a>
+					<a href="/pages/outreach">Outreach</a>
+					<a href="/posts">News</a>
+					<a href="/pages/contact-us" class="topnav-cta">Contact →</a>
+				</nav>
+			</div>
+		</header>
+
+		<section class="hero">
+			<div class="hero-bg"></div>
+			<div class="hero-grid"></div>
+			<div class="wrap" style="display:flex; flex-direction:column; gap:32px;">
+				<div class="hero-head anim-rise d1">
+					<div class="hero-mark">
+						<span class="num">№ 4159</span>
+						<span class="label">FIRST Robotics Competition</span>
+					</div>
+					<div class="hero-meta-grid">
+						<div><div class="label">Est.</div><div class="val">2012</div></div>
+						<div><div class="label">Location</div><div class="val">SF · CA</div></div>
+						<div><div class="label">District</div><div class="val">FIRST · FRC</div></div>
+					</div>
+				</div>
+
+				<div class="hero-display anim-rise d2">
+					<h1>
+						<span class="split">cardinal</span>
+						<span class="split split2">botics.</span>
+					</h1>
+				</div>
+
+				<div class="hero-foot anim-rise d3">
+					<p class="hero-pitch">{f.hero_pitch}</p>
+					<div class="hero-ctas">
+						<a href={f.cta_donate_url} target={f.cta_donate_url.startsWith("http") ? "_blank" : undefined} rel={f.cta_donate_url.startsWith("http") ? "noopener" : undefined} class="btn btn--cardinal">
+							<span>{f.cta_donate_label}</span><span class="arrow">→</span>
+						</a>
+						<a href={f.cta_sponsors_url} class="btn">
+							<span>{f.cta_sponsors_label}</span><span class="arrow">→</span>
+						</a>
+					</div>
+					<div class="hero-signal">
+						<div class="seasons"><em>{f.seasons_count}</em></div>
+						<div class="seasons-label">{f.seasons_label}</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section mission">
+			<div class="wrap">
+				<header class="section-head">
+					<div class="section-kicker">
+						<span class="num">01 / Mission</span>
+						<span class="label">Our Charter</span>
+					</div>
+					<h2 class="section-title">{f.mission_title} <em>{f.mission_accent}</em></h2>
+				</header>
+				<div class="mission-body">
+					<div class="mission-meta">
+						<div><div class="label">Focus</div><p>{f.mission_focus}</p></div>
+						<div><div class="label">Competition</div><p>{f.mission_competition}</p></div>
+						<div><div class="label">Outreach</div><p>{f.mission_outreach}</p></div>
+					</div>
+					<p class="mission-statement">{f.mission_statement}</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="wrap">
+				<header class="section-head">
+					<div class="section-kicker">
+						<span class="num">02 / Index</span>
+						<span class="label">The Site</span>
+					</div>
+					<h2 class="section-title">Everything, <em>in order.</em></h2>
+				</header>
+				<div class="index-rows">
+					{sections.map((s) => (
+						<a href={s.href} class="index-row">
+							<span class="num">{s.num}</span>
+							<span class="row-name">{s.label}</span>
+							<span class="row-hint">{s.hint}</span>
+							<span class="row-go">View →</span>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+
+		{featuredPost && (
+			<section class="section" style="background: var(--ink-soft); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);">
+				<div class="wrap">
+					<header class="section-head">
+						<div class="section-kicker">
+							<span class="num">03 / Dispatches</span>
+							<span class="label">Recent Writing</span>
+						</div>
+						<h2 class="section-title">News &amp; <em>notes.</em></h2>
+					</header>
+					<div class="news-grid">
+						<a href={`/posts/${featuredPost.id}`} class="news-feature">
+							<span class="num">Featured</span>
+							<h3 class="news-feature-title">{featuredPost.data.title}</h3>
+							{featuredPost.data.excerpt && <p class="news-feature-excerpt">{featuredPost.data.excerpt}</p>}
+							<div class="news-feature-meta">
+								<span class="label">Team Blog</span>
+								<span class="label">Read →</span>
+							</div>
+						</a>
+						<div class="news-side">
+							{sidePosts.map((post, i) => (
+								<a href={`/posts/${post.id}`} class="news-side-item">
+									<span class="num">{String(i + 2).padStart(2, "0")}</span>
+									<div>
+										<h3 class="news-side-title">{post.data.title}</h3>
+										{post.data.excerpt && <p class="news-side-excerpt">{post.data.excerpt.slice(0, 140)}</p>}
+									</div>
+								</a>
+							))}
+							<a href="/posts" class="news-side-item" style="opacity:0.7">
+								<span class="num">→</span>
+								<div><h3 class="news-side-title" style="font-style:italic; color: var(--cardinal-bright)">All dispatches</h3></div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		)}
+
+		<section class="colophon">
+			<div class="wrap colophon-inner">
+				<h2 class="colophon-title">{f.join_title} <em>{f.join_accent}</em></h2>
+				<div class="colophon-paths">
+					<a href={f.join_cta1_url} class="btn btn--cardinal"><span>{f.join_cta1_label}</span><span class="arrow">→</span></a>
+					<a href={f.join_cta2_url} class="btn"><span>{f.join_cta2_label}</span><span class="arrow">→</span></a>
+					<a href={f.join_cta3_url} class="btn"><span>{f.join_cta3_label}</span><span class="arrow">→</span></a>
+				</div>
+			</div>
+		</section>
+
+		<footer class="foot">
+			<div class="wrap foot-inner">
+				<span>Team 4159 · Lowell HS · San Francisco</span>
+				<span>Est. 2012 — {new Date().getFullYear()}</span>
+				<a href="/admin/">Admin →</a>
+			</div>
+		</footer>
+	</body>
+</html>

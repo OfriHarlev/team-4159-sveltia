@@ -1,0 +1,13 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "team-4159-sveltia",
+	"pages_build_output_dir": "./dist",
+	"compatibility_date": "2026-02-24",
+	// Reuse the existing R2 bucket so we don't re-migrate the 491 images
+	"r2_buckets": [
+		{
+			"binding": "MEDIA",
+			"bucket_name": "team-4159-website-bucket"
+		}
+	]
+}

@@ -1,0 +1,47 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("posts");
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base title={post.data.title} description={post.data.excerpt}>
+	<article class="post-article">
+		<header class="post-header">
+			<div class="post-kicker">
+				<span class="post-num">/</span>
+				<span class="post-label">News</span>
+			</div>
+			<h1 class="post-title">{post.data.title}</h1>
+			{post.data.excerpt && <p class="post-excerpt">{post.data.excerpt}</p>}
+			<hr class="post-rule" />
+		</header>
+		<div class="post-content"><div class="wp-imported"><Content /></div></div>
+	</article>
+</Base>
+
+<style>
+	.post-article { max-width: 780px; margin: 0 auto; padding: clamp(72px, 12vh, 140px) clamp(24px, 5vw, 40px) clamp(80px, 12vh, 140px); }
+	.post-header { margin-bottom: clamp(32px, 6vh, 60px); }
+	.post-kicker { display: flex; gap: 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 18px; }
+	.post-num { color: var(--cardinal-bright); }
+	.post-title { font-family: var(--font-display); font-weight: 400; font-size: clamp(40px, 6vw, 80px); line-height: 1.0; letter-spacing: -0.02em; margin: 0 0 16px 0; }
+	.post-excerpt { font-family: var(--font-display); font-style: italic; font-size: clamp(20px, 2.4vw, 28px); color: var(--color-text-secondary); margin: 0 0 24px; line-height: 1.35; }
+	.post-rule { border: 0; height: 1px; background: var(--color-border); margin: 0; }
+
+	.wp-imported { font-size: 17px; line-height: 1.65; color: var(--color-text-secondary); }
+	.wp-imported :global(h2) { font-family: var(--font-display); font-size: clamp(28px, 3vw, 40px); font-style: italic; color: var(--color-text); margin: 1.6em 0 0.4em; }
+	.wp-imported :global(p) { margin: 0 0 1.2em; }
+	.wp-imported :global(a) { color: var(--cardinal-bright); border-bottom: 1px solid color-mix(in srgb, var(--cardinal-bright) 40%, transparent); text-decoration: none; }
+	.wp-imported :global(img) { max-width: 100%; height: auto; margin: 2em 0; }
+	.wp-imported :global(strong) { color: var(--color-text); }
+</style>

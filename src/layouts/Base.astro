@@ -1,0 +1,177 @@
+---
+import { Font } from "astro:assets";
+import "../styles/theme.css";
+
+interface Props {
+	title: string;
+	description?: string | null;
+}
+
+const { title, description } = Astro.props;
+const siteTitle = "Team 4159 CardinalBotics";
+const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
+
+const navItems = [
+	{ label: "Our Team", href: "/pages/our-team" },
+	{ label: "Sponsors", href: "/pages/current-sponsors" },
+	{ label: "Events", href: "/pages/events" },
+	{ label: "Outreach", href: "/pages/outreach" },
+	{ label: "News", href: "/posts" },
+	{ label: "Contact", href: "/pages/contact-us" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<Font cssVariable="--font-sans" preload />
+		<Font cssVariable="--font-display" preload />
+		<Font cssVariable="--font-mono" />
+		<title>{fullTitle}</title>
+		{description && <meta name="description" content={description} />}
+		<link rel="icon" type="image/png" href="/wp-content/uploads/2019/05/cropped-Untitled-1.png" />
+		<link rel="apple-touch-icon" href="/wp-content/uploads/2019/05/cropped-Untitled-1.png" />
+	</head>
+	<body>
+		<header class="site-topbar">
+			<div class="topbar-inner">
+				<a href="/" class="brand-mark">
+					<span>TEAM<b>.</b>4159</span>
+					<span class="brand-slash">/</span>
+					<span>CARDINALBOTICS</span>
+				</a>
+				<nav class="site-topnav">
+					{navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+				</nav>
+			</div>
+		</header>
+
+		<main><slot /></main>
+
+		<footer class="site-footer">
+			<div class="footer-inner">
+				<div class="footer-rail">
+					<span class="mono-meta">TEAM № 4159</span>
+					<span class="mono-meta">EST. 2012</span>
+					<span class="mono-meta">LOWELL HS · SF · CA</span>
+					<span class="mono-meta">FIRST · FRC</span>
+				</div>
+				<div class="footer-bottom">
+					<p class="footer-copyright mono-meta">
+						© {new Date().getFullYear()} CardinalBotics · <a href="/admin/">Admin</a>
+					</p>
+				</div>
+			</div>
+		</footer>
+
+		<style>
+			.site-topbar {
+				position: sticky;
+				top: 0;
+				z-index: 100;
+				background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+				backdrop-filter: blur(10px);
+				-webkit-backdrop-filter: blur(10px);
+				border-bottom: 1px solid var(--color-border-subtle);
+			}
+			.topbar-inner {
+				max-width: var(--wide-width);
+				margin: 0 auto;
+				padding: 20px clamp(24px, 5vw, 80px);
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 32px;
+			}
+			.brand-mark {
+				display: flex;
+				align-items: baseline;
+				gap: 10px;
+				font-family: var(--font-mono);
+				font-size: 12px;
+				font-weight: 500;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--color-text);
+				text-decoration: none;
+			}
+			.brand-mark b { color: var(--cardinal-bright); font-weight: 500; }
+			.brand-slash { opacity: 0.4; font-weight: 300; }
+			.brand-mark:hover { color: var(--cardinal-bright); }
+			.site-topnav {
+				display: flex;
+				align-items: center;
+				gap: clamp(14px, 2vw, 28px);
+			}
+			.site-topnav a {
+				font-family: var(--font-mono);
+				font-size: 11px;
+				font-weight: 500;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				color: var(--color-text);
+				opacity: 0.75;
+				text-decoration: none;
+				transition: opacity 180ms ease, color 180ms ease;
+			}
+			.site-topnav a:hover { opacity: 1; color: var(--cardinal-bright); }
+
+			main { min-height: calc(100vh - 72px - 200px); }
+
+			.site-footer {
+				background: var(--color-bg);
+				border-top: 1px solid var(--color-border-subtle);
+			}
+			.footer-inner {
+				max-width: var(--wide-width);
+				margin: 0 auto;
+				padding: 48px clamp(24px, 5vw, 80px) 32px;
+			}
+			.footer-rail {
+				display: flex;
+				flex-wrap: wrap;
+				gap: clamp(20px, 4vw, 48px);
+				padding-bottom: 28px;
+				border-bottom: 1px solid var(--color-border-subtle);
+			}
+			.mono-meta {
+				font-family: var(--font-mono);
+				font-size: 11px;
+				font-weight: 500;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--color-muted);
+			}
+			.footer-bottom {
+				padding-top: 24px;
+			}
+			.footer-copyright a {
+				color: var(--color-text-secondary);
+				text-decoration: none;
+				transition: color 180ms ease;
+			}
+			.footer-copyright a:hover { color: var(--cardinal-bright); }
+
+			@media (max-width: 780px) {
+				.topbar-inner { flex-wrap: wrap; gap: 16px; }
+				.site-topnav { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 14px; }
+			}
+
+			body {
+				margin: 0;
+				background: var(--color-bg);
+				color: var(--color-text);
+				font-family: var(--font-sans);
+				font-size: 16px;
+				line-height: 1.55;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+			html { margin: 0; }
+			* { box-sizing: border-box; }
+			::selection { background: var(--cardinal); color: var(--color-text); }
+		</style>
+	</body>
+</html>

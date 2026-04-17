@@ -1,0 +1,81 @@
+backend:
+  name: github
+  repo: OfriHarlev/team-4159-sveltia
+  branch: main
+  # GitHub OAuth app credentials are set up separately — see README
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# Local-dev friendly: run `npx @sveltia/cms-proxy-server` to test without GitHub auth
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+site_url: "https://team-4159-sveltia.pages.dev"
+display_url: "https://team-4159-sveltia.pages.dev"
+logo_url: "https://team-4159-sveltia.pages.dev/wp-content/uploads/2019/05/cropped-Untitled-1.png"
+
+collections:
+  - name: homepage
+    label: Homepage
+    label_singular: Homepage
+    description: "Editable fields for the front page hero, mission, and footer CTAs."
+    files:
+      - name: main
+        label: Homepage Content
+        file: src/content/homepage/main.json
+        fields:
+          - { name: hero_pitch, label: "Hero pitch paragraph", widget: text }
+          - { name: seasons_count, label: "Seasons count (e.g. 14)", widget: string }
+          - { name: seasons_label, label: "Seasons sublabel", widget: string }
+          - { name: mission_title, label: "Mission title (lead words)", widget: string }
+          - { name: mission_accent, label: "Mission accent word (italic red)", widget: string }
+          - { name: mission_statement, label: "Mission statement", widget: text }
+          - { name: mission_focus, label: "Mission — Focus blurb", widget: text }
+          - { name: mission_competition, label: "Mission — Competition blurb", widget: text }
+          - { name: mission_outreach, label: "Mission — Outreach blurb", widget: text }
+          - { name: join_title, label: "Join title (lead words)", widget: string }
+          - { name: join_accent, label: "Join accent word (italic red)", widget: string }
+          - { name: cta_donate_label, label: "Hero CTA 1 – Label", widget: string }
+          - { name: cta_donate_url, label: "Hero CTA 1 – URL", widget: string }
+          - { name: cta_sponsors_label, label: "Hero CTA 2 – Label", widget: string }
+          - { name: cta_sponsors_url, label: "Hero CTA 2 – URL", widget: string }
+          - { name: join_cta1_label, label: "Join CTA 1 – Label", widget: string }
+          - { name: join_cta1_url, label: "Join CTA 1 – URL", widget: string }
+          - { name: join_cta2_label, label: "Join CTA 2 – Label", widget: string }
+          - { name: join_cta2_url, label: "Join CTA 2 – URL", widget: string }
+          - { name: join_cta3_label, label: "Join CTA 3 – Label", widget: string }
+          - { name: join_cta3_url, label: "Join CTA 3 – URL", widget: string }
+
+  - name: pages
+    label: Pages
+    label_singular: Page
+    folder: src/content/pages
+    create: true
+    format: frontmatter
+    extension: md
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Description, widget: string, required: false }
+      - { name: date, label: Date, widget: datetime, required: false }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: posts
+    label: News Posts
+    label_singular: Post
+    folder: src/content/posts
+    create: true
+    format: frontmatter
+    extension: md
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: excerpt, label: Excerpt, widget: text, required: false }
+      - { name: date, label: Date, widget: datetime }
+      - { name: body, label: Body, widget: markdown }
