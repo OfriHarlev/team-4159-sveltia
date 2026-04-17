@@ -2,15 +2,13 @@ backend:
   name: github
   repo: OfriHarlev/team-4159-sveltia
   branch: main
-  # Uses Netlify's hosted OAuth relay. site_id must match the Netlify site
-  # that has the GitHub OAuth provider installed (Access & security → OAuth).
-  # GitHub OAuth app's callback URL is https://api.netlify.com/auth/done.
-  base_url: https://api.netlify.com
+  # Self-hosted OAuth relay (see auth-worker/). The worker handles the
+  # GitHub handshake and postMessages the token back to this admin in
+  # Sveltia's expected format — which Netlify's relay doesn't do.
+  # GitHub OAuth app's callback URL must be:
+  #   https://team-4159-cms-auth.4159-cardinalbotics-account.workers.dev/callback
+  base_url: https://team-4159-cms-auth.4159-cardinalbotics-account.workers.dev
   auth_endpoint: auth
-  # Both site_id and site_domain are accepted by different Decap/Sveltia versions.
-  # The value must match the Netlify site that hosts the OAuth provider.
-  site_id: celebrated-snickerdoodle-297d41.netlify.app
-  site_domain: celebrated-snickerdoodle-297d41.netlify.app
 
 media_folder: "public/uploads"
 public_folder: "/uploads"

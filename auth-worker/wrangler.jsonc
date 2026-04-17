@@ -1,0 +1,16 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "team-4159-cms-auth",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-02-24",
+	"compatibility_flags": ["nodejs_compat"],
+
+	// Public (non-secret) vars:
+	// GITHUB_CLIENT_ID is the OAuth app's client ID — safe to commit.
+	// ALLOWED_DOMAIN is the Sveltia admin's origin host.
+	// GITHUB_CLIENT_SECRET is set via `wrangler secret put GITHUB_CLIENT_SECRET`.
+	"vars": {
+		"GITHUB_CLIENT_ID": "Ov23lifwcWXWHEqnnMxn",
+		"ALLOWED_DOMAIN": "team-4159-sveltia.pages.dev"
+	}
+}
