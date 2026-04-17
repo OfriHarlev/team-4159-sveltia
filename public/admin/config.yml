@@ -7,7 +7,10 @@ backend:
   # GitHub OAuth app's callback URL is https://api.netlify.com/auth/done.
   base_url: https://api.netlify.com
   auth_endpoint: auth
+  # Both site_id and site_domain are accepted by different Decap/Sveltia versions.
+  # The value must match the Netlify site that hosts the OAuth provider.
   site_id: celebrated-snickerdoodle-297d41.netlify.app
+  site_domain: celebrated-snickerdoodle-297d41.netlify.app
 
 # Local-dev friendly: run `npx @sveltia/cms-proxy-server` to test without GitHub auth
 local_backend: true
