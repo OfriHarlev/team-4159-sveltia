@@ -6,7 +6,8 @@
 		<title>Content Manager · Team 4159</title>
 	</head>
 	<body>
-		<!-- Sveltia CMS: modern Decap CMS fork. Loads from a CDN with no build step. -->
-		<script type="module" src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+		<!-- Sveltia CMS: modern Decap CMS fork. Loads from a CDN with no build step.
+		     Must NOT be loaded as type="module" — it ships a classic script bundle. -->
+		<script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 	</body>
 </html>
