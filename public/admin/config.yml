@@ -2,9 +2,12 @@ backend:
   name: github
   repo: OfriHarlev/team-4159-sveltia
   branch: main
-  # GitHub OAuth app credentials are set up separately — see README
+  # Uses Netlify's hosted OAuth relay. site_id must match the Netlify site
+  # that has the GitHub OAuth provider installed (Access & security → OAuth).
+  # GitHub OAuth app's callback URL is https://api.netlify.com/auth/done.
   base_url: https://api.netlify.com
   auth_endpoint: auth
+  site_id: celebrated-snickerdoodle-297d41.netlify.app
 
 # Local-dev friendly: run `npx @sveltia/cms-proxy-server` to test without GitHub auth
 local_backend: true
