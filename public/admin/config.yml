@@ -12,9 +12,6 @@ backend:
   site_id: celebrated-snickerdoodle-297d41.netlify.app
   site_domain: celebrated-snickerdoodle-297d41.netlify.app
 
-# Local-dev friendly: run `npx @sveltia/cms-proxy-server` to test without GitHub auth
-local_backend: true
-
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
